@@ -18,4 +18,6 @@ This is a Trading Bot implementing a simple RSI Strategy.
    
 ### How to run?
 cd into core folder and type 
-'flask -app app run'
+```
+flask -app app run
+```
