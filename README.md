@@ -1,7 +1,8 @@
 # BinanceTradingBot
 ## IN PROGRESS
 ### About
-This is a Trading Bot implementing a simple RSI Strategy. 
+This is a Trading Bot implementing a simple RSI Strategy. This is a test project to learn flask and Java Script. It is more focused on a working algorithm.
+
 
 ### Requierements
     backtrader==1.9.76.123
@@ -21,3 +22,5 @@ cd into core folder and type
 ```
 flask -app app run
 ```
+
+Then in order to run a bot, you will have to sign up and BOTS section add an API pair from your binance account with right privileges. Then press activate. 
