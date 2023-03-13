@@ -1,0 +1,14 @@
+1. Aby uruchomić program należy posiadać następujące moduły. Pobiera się je za pomocą komendy pip install //nazwamodułu//
+    backtrader==1.9.76.123
+    binance==0.3
+    config==0.5.1
+    Flask==2.2.2
+    Flask_Login==0.6.2
+    flask_sqlalchemy==3.0.2
+    numpy==1.24.1
+    python_binance==1.0.16
+    SQLAlchemy==1.4.46
+    websocket_client==1.4.2
+    Werkzeug==2.2.2
+2. Aby uruchomić program należy w folderze tradingbot\core z poziomu konsoli uruchomić komende   flask --app app run
+3. W przeglądarce wpisujemy  http://127.0.0.1:5000/ i możemy korzystać z programu

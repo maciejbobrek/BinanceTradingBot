@@ -1,0 +1,60 @@
+{% extends "base.html" %} {% block title %}Home{% endblock %} {% block content%}
+        <div id="chart"></div>
+
+        <div id="trades"></div>
+        
+        <div id="my_balances">
+          
+          <table>            
+            {% if my_balances != None %}
+              <h2>Balances</h2>
+              {%for balance in my_balances %}
+              <tr>
+                <td>
+                  {{ balance['asset'] }} 
+                </td>
+                <td>
+                  {{ balance['free'] }}
+                </td>
+              </tr>
+              {% endfor %}
+            {%else%}
+               <h2>Please add an API key pair to show your balances</h2>
+            {%endif%}
+            </table>
+
+        </div>
+
+
+        <script>
+        //var binanceSocket = new WebSocket("wss://stream.binance.com:9443/ws/btcusdt@trade");
+
+        var tradeDiv = document.getElementById('trades')
+
+        // binanceSocket.onmessage = function (event) {
+        //     console.log(event.data);
+
+        //     var messageObject = JSON.parse(event.data)   
+
+        //     tradeDiv.append(messageObject.p)
+                 
+        // }
+        </script>
+        <script type="module" src="{{ url_for('static', filename='js/chart.js') }}"></script>
+        <script type="module" src="{{ url_for('static', filename='js/ws_managment.js') }}"></script>
+        <script
+      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"
+    ></script>
+    {% endblock %}

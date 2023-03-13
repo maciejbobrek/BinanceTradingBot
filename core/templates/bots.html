@@ -1,0 +1,115 @@
+{% extends "base.html" %}  {% block title %}Bots{% endblock %} 
+{%block head%}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+{%endblock%}
+{% block content%}
+<script type='module' src="{{ url_for('static', filename='js/bots.js') }}"></script>
+<div id="content" style="background-color:#2E384E;color:white;height:100vh">
+    <div class='container'>
+        <h1 align="center">Add a bot</h1>
+        <form id="pair_input_form"  method="POST">
+        <div class="form-group">
+            <label for="keylabel">Key Label</label>
+            <input
+            class="form-control"
+            id="keylabel"
+            name="keylabel"
+            placeholder="Enter label"
+            />
+        </div>
+        <div class="form-group">
+            <label for="public_key">Public key</label>
+            <input
+            class="form-control"
+            id="public_key"
+            name="public_key"
+            placeholder="Enter public"
+            />
+        </div>
+        <div class="form-group">
+            <label for="secret_key">Secret key</label>
+            <input
+            class="form-control"
+            id="secret_key"
+            name="secret_key"
+            placeholder="Enter secret"
+            />
+        </div>
+        <br />
+        <button type="submit" id="submit_keys" class="btn btn-primary">Submit</button>
+        </form>
+
+    </div>
+    <div class="container">
+        <h1 align="center">Your bots</h1>
+        <div class="col">
+                {%for bot in user.bots%}
+                {%if bot.uptime == 0%}
+                <div class="row card" style="background-color:#943b3b;">
+                {%else%}
+                <div class="row card" style="background-color:#65B448;">
+                {%endif%}
+                    <div class="container-fluid card-box" style="margin:10px;">
+                        <div class="row">
+                        <div class="col">
+                            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#{{bot.keylabel}}" aria-expanded="false" aria-controls="collapseExample">
+                                {{bot.keylabel}}
+                            </button>
+                        </div>
+                        <form class='col' method='post' action='/bots/delete_bot'>
+                            <button type="input" name="bot_id" class="btn btn-warning" style="color;black" value="{{bot.id}}">Delete
+                            </button>
+                            
+                        </form>
+                
+                        <form class='col' method='post' action='/bots/edit_algorithm' target='_blank'>
+                            <button type="input" name="bot_id" class="btn btn-primary" value="{{bot.id}}">Edit Algorithm
+                            </button>
+                        </form>
+
+                        {%if bot.uptime > 0%}
+                        <h1 class="col text-end font-monospace" style="color:green" >
+                            online
+                        </h1>
+                            {%else%}
+                        <h1 class="col text-end font-monospace" style="color:red" >
+                            offline
+                        </h1>
+                            {%endif%}
+                        </div>
+                    </div>
+                    <div class="container-fluid collapse" id="{{bot.keylabel}}" style="color:white;" >
+                        <div class="col float-left align-top">
+                            <div class="row">Public key: <i>{{bot.public}}</i></div> 
+                            <div class="row">Secret key: <i style="-webkit-text-security: disc;">{{bot.secret}}</i></div>
+
+                            <form id='command_bot' class='row' method='POST' action='/bots/commandbot_{{bot.id}}' >
+                            {%if bot.uptime == 0%}
+                                <div class="form-group col">
+                                <label>Symbol</label>
+                                <input type="input" class="form-control" id="form_symbol" name="symbol"placeholder="ETHUDST" value="ETHUSDT">
+                                </div>
+                                <div class="form-group col">
+                                    <label>Quantity</label>
+                                    <input type="input" class="form-control" id="form_quantity" name="quantity" placeholder="check minimal rate" value="10">
+                                </div>
+                                <div class="form-group col">
+                                    <label>Candle period</label>
+                                    <input type="input" class="form-control" id="form_period" name="period" placeholder="15m" value="15m">
+                                </div>
+                                <button type="submit" class="btn btn-success col" name="command" value="activate">Activate</button>  
+                            {%else%}
+                                <button type="submit" class="btn btn-danger col" name="command" value="deactivate">Deactivate</button>  
+                            {%endif%}      
+                            </form>
+                        </div>     
+                    </div>
+                </div>
+                {%endfor%}
+            </div>
+        </div>
+    </div>
+</div>
+
+{%endblock%}

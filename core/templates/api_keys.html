@@ -1,0 +1,48 @@
+{% extends "base.html" %} {% block title %}API keys{% endblock %} {% block content%}
+<h1 align="center">API Key Menager</h1>
+  <script type='module' src="{{ url_for('static', filename='js/api_keys.js') }}"></script>
+    <form id="pair_input_form" method="POST" onsubmit='event.preventDefault();'>
+      <div class="form-group">
+        <label for="keylabel">Key Label</label>
+        <input
+          class="form-control"
+          id="keylabel"
+          name="keylabel"
+          placeholder="Enter label"
+        />
+      </div>
+      <div class="form-group">
+        <label for="public_key">Public key</label>
+        <input
+          class="form-control"
+          id="public_key"
+          name="public_key"
+          placeholder="Enter public"
+        />
+      </div>
+      <div class="form-group">
+        <label for="secret_key">Secret key</label>
+        <input
+          class="form-control"
+          id="secret_key"
+          name="secret_key"
+          placeholder="Enter secret"
+        />
+      </div>
+      <br />
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+    {%if has_bots == false %}
+      <h2 align="center">You don't have any keys</h2>
+    {%else%}
+        {% for bot in user.bots %}
+        <div class="container-fluid">
+          {{ bot.keylabel }}   {{ bot.public}}   {{bot.secret}}
+          <form method='post' action='/api_keys/delete_pair'>
+            <button type="input" name="bot_id" class="btn btn-primary" value="{{bot.id}}">Delete
+            </button>
+          </form>
+        </div>
+        {% endfor %}
+    {%endif%}
+    {% endblock %}
