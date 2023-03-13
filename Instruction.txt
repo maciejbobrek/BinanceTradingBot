@@ -1,0 +1,3 @@
+
+2. Aby uruchomić program należy w folderze tradingbot\core z poziomu konsoli uruchomić komende   flask --app app run
+3. W przeglądarce wpisujemy  http://127.0.0.1:5000/ i możemy korzystać z programu
